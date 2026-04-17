@@ -1,14 +1,14 @@
 import { Body, ConflictException, Controller, HttpCode, Post, UsePipes } from '@nestjs/common'
 import { hash } from 'bcryptjs'
-import z from 'zod'
+import { z } from 'zod'
 
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe'
 import { PrismaService } from '../prisma/prisma.service'
 
 const createAccountBodySchema = z.object({
-  email: z.email(),
-  name: z.string(),
-  password: z.string(),
+  email: z.string().email(),
+  name: z.string().min(1, 'Name is required'),
+  password: z.string().min(6, 'Password must be at least 6 characters'),
 })
 
 type CreateAccountBodySchema = z.infer<typeof createAccountBodySchema>
