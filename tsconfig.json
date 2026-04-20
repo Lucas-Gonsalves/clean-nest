@@ -16,8 +16,9 @@
     "paths": {
       "@/*": ["./*"],
       "@src/*": ["./src/*"],
+      "@test": ["./test"],
     },
-    "types": ["node", "jest"],
+    "types": ["node", "vitest/globals"],
     "outDir": "./dist",
     "incremental": true,
     "strict": true,
