@@ -6,11 +6,11 @@ import z from 'zod'
 
 import { Env } from '../env'
 
-const tokenScrema = z.object({
+const tokenPayloadSchema = z.object({
   sub: z.uuid(),
 })
 
-type TokenScrema = z.infer<typeof tokenScrema>
+export type UserPayload = z.infer<typeof tokenPayloadSchema>
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -24,7 +24,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     })
   }
 
-  validate(payload: TokenScrema) {
-    return tokenScrema.parse(payload)
+  validate(payload: UserPayload) {
+    return tokenPayloadSchema.parse(payload)
   }
 }
