@@ -6,9 +6,9 @@ import { ZodValidationPipe } from '../pipes/zod-validation-pipe'
 import { PrismaService } from '../prisma/prisma.service'
 
 const createAccountBodySchema = z.object({
-  email: z.string().email(),
-  name: z.string().min(1, 'Name is required'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
+  email: z.email(),
+  name: z.string(),
+  password: z.string(),
 })
 
 type CreateAccountBodySchema = z.infer<typeof createAccountBodySchema>
