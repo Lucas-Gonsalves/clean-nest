@@ -3,12 +3,15 @@ import { PrismaPg } from '@prisma/adapter-pg'
 
 import { PrismaClient } from '../generated/prisma/client'
 
-const connectionString = process.env.DATABASE_URL as string
-
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
   constructor() {
-    const adapter = new PrismaPg({ connectionString })
+    const url = new URL(process.env.DATABASE_URL as string)
+    const schema = url.searchParams.get('schema') ?? 'public'
+
+    url.searchParams.delete('schema')
+
+    const adapter = new PrismaPg({ connectionString: url.toString() }, { schema })
     super({ adapter, log: ['warn', 'error'] })
   }
 

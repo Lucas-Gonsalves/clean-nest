@@ -3,50 +3,33 @@ import 'dotenv/config'
 import { execSync } from 'node:child_process'
 import { randomUUID } from 'node:crypto'
 
-import { INestApplication } from '@nestjs/common'
-import { Test } from '@nestjs/testing'
+import { PrismaPg } from '@prisma/adapter-pg'
 
-import { AppModule } from '@/src/app.module'
-import { PrismaService } from '@/src/prisma/prisma.service'
+import { PrismaClient } from '@/src/generated/prisma/client'
 
-function generateUniqueDatabaseURL(schemaId: string) {
-  const url = new URL(process.env.DATABASE_URL!)
-  url.searchParams.set('schema', schemaId)
-  return url.toString()
-}
+const schema = randomUUID()
+const baseUrl = new URL(process.env.DATABASE_URL as string)
 
-let app: INestApplication
-let prisma: PrismaService
-const schemaId = randomUUID()
+const databaseURL = new URL(baseUrl)
+databaseURL.searchParams.set('schema', schema)
 
-beforeAll(async () => {
-  const databaseURL = generateUniqueDatabaseURL(schemaId)
-  process.env.DATABASE_URL = databaseURL
+process.env.DATABASE_URL = databaseURL.toString()
 
-  execSync('pnpm prisma migrate deploy', {
-    env: {
-      ...process.env,
-      DATABASE_URL: databaseURL,
-    },
-  })
+execSync('pnpm prisma migrate deploy', {
+  env: {
+    ...process.env,
+    DATABASE_URL: databaseURL.toString(),
+  },
+})
 
-  const moduleRef = await Test.createTestingModule({
-    imports: [AppModule],
-  }).compile()
+const adapter = new PrismaPg({ connectionString: baseUrl.toString() }, { schema })
 
-  app = moduleRef.createNestApplication()
-  await app.init()
-
-  prisma = app.get(PrismaService)
+const prisma = new PrismaClient({
+  adapter,
+  log: ['warn', 'error'],
 })
 
 afterAll(async () => {
-  if (prisma) {
-    await prisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS "${schemaId}" CASCADE`)
-    await prisma.$disconnect()
-  }
-
-  if (app) {
-    await app.close()
-  }
+  await prisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`)
+  await prisma.$disconnect()
 })
