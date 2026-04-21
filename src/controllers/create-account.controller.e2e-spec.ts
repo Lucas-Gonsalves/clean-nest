@@ -23,7 +23,7 @@ describe('Create Account (E2E)', () => {
   })
 
   describe('[POST] /accounts', () => {
-    it('should create a new account with valid data', async () => {
+    it('should be able create a new account with valid data', async () => {
       const response = await request(app.getHttpServer()).post('/accounts').send({
         name: 'John Doe',
         email: 'john@example.com',
