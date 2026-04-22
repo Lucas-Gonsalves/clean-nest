@@ -1,6 +1,6 @@
 import { Body, ConflictException, Controller, HttpCode, Post, UsePipes } from '@nestjs/common'
 import { ZodValidationPipe } from '@src/infra/http/pipes/zod-validation-pipe'
-import { PrismaService } from '@src/infra/prisma/prisma.service'
+import { PrismaService } from '@/src/infra/database/prisma/prisma.service'
 import { hash } from 'bcryptjs'
 import { z } from 'zod'
 
