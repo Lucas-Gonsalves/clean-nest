@@ -1,21 +1,21 @@
-import { makeAnswer } from '@test/factories/forum/make-answer'
-import { makeAnswerComment } from '@test/factories/forum/make-answer-comment'
-import { makeQuestion } from '@test/factories/forum/make-question'
-import { InMemoryAnswerCommentsRepository } from '@test/repositories/forum/in-memory-answer-comments-repository'
-import { InMemoryAnswersAttachmentsRepository } from '@test/repositories/forum/in-memory-answers-attachments-repository'
-import { InMemoryAnswersRepository } from '@test/repositories/forum/in-memory-answers-repository'
-import { InMemoryQuestionsAttachmentsRepository } from '@test/repositories/forum/in-memory-question-attachments-repository'
-import { InMemoryQuestionsRepository } from '@test/repositories/forum/in-memory-questions-repository'
-import { InMemoryNotificationsRepository } from '@test/repositories/notification/in-memory-notification-repository'
-import { waitFor } from '@test/utils/wait-for'
-import { beforeEach, describe, expect, it, type MockInstance, vi } from 'vitest'
-
-import { OnAnswerComment } from '@/domain/notification/application/subscribers/on-answer-comment'
+import { OnAnswerComment } from '@src/domain/notification/application/subscribers/on-answer-comment'
 import {
   SendNotificationUseCase,
   type SendNotificationUseCaseRequest,
   type SendNotificationUseCaseResponse,
-} from '@/domain/notification/application/use-case/send-notification'
+} from '@src/domain/notification/application/use-case/send-notification'
+import { beforeEach, describe, expect, it, type MockInstance, vi } from 'vitest'
+
+import { makeAnswer } from '@/test/factories/forum/make-answer'
+import { makeAnswerComment } from '@/test/factories/forum/make-answer-comment'
+import { makeQuestion } from '@/test/factories/forum/make-question'
+import { InMemoryAnswerCommentsRepository } from '@/test/repositories/forum/in-memory-answer-comments-repository'
+import { InMemoryAnswersAttachmentsRepository } from '@/test/repositories/forum/in-memory-answers-attachments-repository'
+import { InMemoryAnswersRepository } from '@/test/repositories/forum/in-memory-answers-repository'
+import { InMemoryQuestionsAttachmentsRepository } from '@/test/repositories/forum/in-memory-question-attachments-repository'
+import { InMemoryQuestionsRepository } from '@/test/repositories/forum/in-memory-questions-repository'
+import { InMemoryNotificationsRepository } from '@/test/repositories/notification/in-memory-notification-repository'
+import { waitFor } from '@/test/utils/wait-for'
 
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionsAttachmentsRepository
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository

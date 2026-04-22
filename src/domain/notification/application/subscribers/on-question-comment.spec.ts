@@ -1,18 +1,18 @@
-import { makeQuestion } from '@test/factories/forum/make-question'
-import { makeQuestionComment } from '@test/factories/forum/make-question-comment'
-import { InMemoryQuestionsAttachmentsRepository } from '@test/repositories/forum/in-memory-question-attachments-repository'
-import { InMemoryQuestionCommentsRepository } from '@test/repositories/forum/in-memory-question-comments-repository'
-import { InMemoryQuestionsRepository } from '@test/repositories/forum/in-memory-questions-repository'
-import { InMemoryNotificationsRepository } from '@test/repositories/notification/in-memory-notification-repository'
-import { waitFor } from '@test/utils/wait-for'
-import { beforeEach, describe, expect, it, type MockInstance, vi } from 'vitest'
-
-import { OnQuestionComment } from '@/domain/notification/application/subscribers/on-question-comment'
+import { OnQuestionComment } from '@src/domain/notification/application/subscribers/on-question-comment'
 import {
   SendNotificationUseCase,
   type SendNotificationUseCaseRequest,
   type SendNotificationUseCaseResponse,
-} from '@/domain/notification/application/use-case/send-notification'
+} from '@src/domain/notification/application/use-case/send-notification'
+import { beforeEach, describe, expect, it, type MockInstance, vi } from 'vitest'
+
+import { makeQuestion } from '@/test/factories/forum/make-question'
+import { makeQuestionComment } from '@/test/factories/forum/make-question-comment'
+import { InMemoryQuestionsAttachmentsRepository } from '@/test/repositories/forum/in-memory-question-attachments-repository'
+import { InMemoryQuestionCommentsRepository } from '@/test/repositories/forum/in-memory-question-comments-repository'
+import { InMemoryQuestionsRepository } from '@/test/repositories/forum/in-memory-questions-repository'
+import { InMemoryNotificationsRepository } from '@/test/repositories/notification/in-memory-notification-repository'
+import { waitFor } from '@/test/utils/wait-for'
 
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionsAttachmentsRepository
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository

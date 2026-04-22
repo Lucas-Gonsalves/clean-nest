@@ -1,14 +1,13 @@
 import { INestApplication } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { Test } from '@nestjs/testing'
+import { AppModule } from '@src/infra/app.module'
+import { PrismaService } from '@src/infra/prisma/prisma.service'
 import { hash } from 'bcryptjs'
 import { Server } from 'http'
 import request from 'supertest'
 
-import { AppModule } from '@/app.module'
-import { PrismaService } from '@/prisma/prisma.service'
-
-describe('Create Question (E2E)', () => {
+describe('Fetch Recent Questions (E2E)', () => {
   let app: INestApplication<Server>
   let prisma: PrismaService
   let jwt: JwtService
@@ -27,8 +26,8 @@ describe('Create Question (E2E)', () => {
     await app.init()
   })
 
-  describe('[POST] /questions', () => {
-    it('should be able create a new question with valid data', async () => {
+  describe('[GET] /questions', () => {
+    it('should be able to fetch the recent questions', async () => {
       const user = await prisma.user.create({
         data: {
           name: 'John Doe',
@@ -39,20 +38,33 @@ describe('Create Question (E2E)', () => {
 
       const accessToken = jwt.sign({ sub: user.id })
 
+      await prisma.question.createMany({
+        data: [
+          {
+            authorId: user.id,
+            title: 'Question 01',
+            slug: 'question-01',
+            content: 'Content content',
+          },
+          {
+            authorId: user.id,
+            title: 'Question 02',
+            slug: 'question-02',
+            content: 'Content content',
+          },
+        ],
+      })
+
       const response = await request(app.getHttpServer())
-        .post('/questions')
+        .get('/questions')
         .set('Authorization', `Bearer ${accessToken}`)
-        .send({
-          title: 'New Question',
-          content: 'Content content',
-        })
 
-      const questionOnDatabase = await prisma.question.findFirst({ where: { title: 'New Question' } })
-
-      expect(response.statusCode).toBe(201)
-      expect(questionOnDatabase).toMatchObject({
-        title: 'New Question',
-        content: 'Content content',
+      expect(response.statusCode).toBe(200)
+      expect(response.body).toEqual({
+        questions: [
+          expect.objectContaining({ title: 'Question 01' }),
+          expect.objectContaining({ title: 'Question 02' }),
+        ],
       })
     })
   })

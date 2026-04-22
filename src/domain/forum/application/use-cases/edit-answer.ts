@@ -1,12 +1,12 @@
-import { type Either, left, right } from '@/core/either'
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { NotAllowedError } from '@/core/errors/domain/not-allowed-error'
-import { ResourceNotFoundError } from '@/core/errors/domain/resource-not-found-error'
-import type { AnswersAttachmentsRepository } from '@/domain/forum/application/repositories/answer-attachments-repository'
-import type { AnswersRepository } from '@/domain/forum/application/repositories/answers-repository'
-import type { Answer } from '@/domain/forum/enterprise/entities/answer'
-import { AnswerAttachment } from '@/domain/forum/enterprise/entities/answer-attachment'
-import { AnswerAttachmentList } from '@/domain/forum/enterprise/entities/answer-attachment-list'
+import { type Either, left, right } from '@src/core/either'
+import { UniqueEntityId } from '@src/core/entities/unique-entity-id'
+import { NotAllowedError } from '@src/core/errors/domain/not-allowed-error'
+import { ResourceNotFoundError } from '@src/core/errors/domain/resource-not-found-error'
+import type { AnswersAttachmentsRepository } from '@src/domain/forum/application/repositories/answer-attachments-repository'
+import type { AnswersRepository } from '@src/domain/forum/application/repositories/answers-repository'
+import type { Answer } from '@src/domain/forum/enterprise/entities/answer'
+import { AnswerAttachment } from '@src/domain/forum/enterprise/entities/answer-attachment'
+import { AnswerAttachmentList } from '@src/domain/forum/enterprise/entities/answer-attachment-list'
 
 interface EditAnswerUseCaseRequest {
   authorId: string

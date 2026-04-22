@@ -1,11 +1,11 @@
-import { makeQuestion } from '@test/factories/forum/make-question'
-import { makeQuestionAttachment } from '@test/factories/forum/make-question-attachment'
-import { InMemoryQuestionsAttachmentsRepository } from '@test/repositories/forum/in-memory-question-attachments-repository'
-import { InMemoryQuestionsRepository } from '@test/repositories/forum/in-memory-questions-repository'
+import { UniqueEntityId } from '@src/core/entities/unique-entity-id'
+import { EditQuestionUseCase } from '@src/domain/forum/application/use-cases/edit-question'
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { EditQuestionUseCase } from '@/domain/forum/application/use-cases/edit-question'
+import { makeQuestion } from '@/test/factories/forum/make-question'
+import { makeQuestionAttachment } from '@/test/factories/forum/make-question-attachment'
+import { InMemoryQuestionsAttachmentsRepository } from '@/test/repositories/forum/in-memory-question-attachments-repository'
+import { InMemoryQuestionsRepository } from '@/test/repositories/forum/in-memory-questions-repository'
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository
 let inMemoryQuestionsAttachmentsRepository: InMemoryQuestionsAttachmentsRepository

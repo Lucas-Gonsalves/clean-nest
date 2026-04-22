@@ -1,4 +1,4 @@
-import type { QuestionAttachment } from '@/domain/forum/enterprise/entities/question-attachment'
+import type { QuestionAttachment } from '@src/domain/forum/enterprise/entities/question-attachment'
 
 export interface QuestionsAttachmentsRepository {
   findManyByQuestionId(questionId: string): Promise<QuestionAttachment[]>

@@ -1,7 +1,7 @@
-import { DomainEvents } from '@/core/events/domain-events'
-import type { PaginationParams } from '@/core/repositories/pagination-params'
-import type { QuestionCommentsRepository } from '@/domain/forum/application/repositories/question-comments-repository'
-import type { QuestionComment } from '@/domain/forum/enterprise/entities/question-comment'
+import { DomainEvents } from '@src/core/events/domain-events'
+import type { PaginationParams } from '@src/core/repositories/pagination-params'
+import type { QuestionCommentsRepository } from '@src/domain/forum/application/repositories/question-comments-repository'
+import type { QuestionComment } from '@src/domain/forum/enterprise/entities/question-comment'
 
 export class InMemoryQuestionCommentsRepository implements QuestionCommentsRepository {
   public items: QuestionComment[] = []

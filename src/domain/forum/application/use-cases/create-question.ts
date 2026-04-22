@@ -1,9 +1,9 @@
-import { type Either, right } from '@/core/either'
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import type { QuestionsRepository } from '@/domain/forum/application/repositories/question-repository'
-import { Question } from '@/domain/forum/enterprise/entities/question'
-import { QuestionAttachment } from '@/domain/forum/enterprise/entities/question-attachment'
-import { QuestionAttachmentList } from '@/domain/forum/enterprise/entities/question-attachment-list'
+import { type Either, right } from '@src/core/either'
+import { UniqueEntityId } from '@src/core/entities/unique-entity-id'
+import type { QuestionsRepository } from '@src/domain/forum/application/repositories/question-repository'
+import { Question } from '@src/domain/forum/enterprise/entities/question'
+import { QuestionAttachment } from '@src/domain/forum/enterprise/entities/question-attachment'
+import { QuestionAttachmentList } from '@src/domain/forum/enterprise/entities/question-attachment-list'
 
 interface CreateQuestionUseCaseRequest {
   authorId: string

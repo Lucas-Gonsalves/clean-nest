@@ -1,8 +1,8 @@
-import { DomainEvents } from '@/core/events/domain-events'
-import type { PaginationParams } from '@/core/repositories/pagination-params'
-import type { AnswersAttachmentsRepository } from '@/domain/forum/application/repositories/answer-attachments-repository'
-import type { AnswersRepository } from '@/domain/forum/application/repositories/answers-repository'
-import type { Answer } from '@/domain/forum/enterprise/entities/answer'
+import { DomainEvents } from '@src/core/events/domain-events'
+import type { PaginationParams } from '@src/core/repositories/pagination-params'
+import type { AnswersAttachmentsRepository } from '@src/domain/forum/application/repositories/answer-attachments-repository'
+import type { AnswersRepository } from '@src/domain/forum/application/repositories/answers-repository'
+import type { Answer } from '@src/domain/forum/enterprise/entities/answer'
 
 export class InMemoryAnswersRepository implements AnswersRepository {
   public items: Answer[] = []

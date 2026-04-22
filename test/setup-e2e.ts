@@ -4,8 +4,7 @@ import { execSync } from 'node:child_process'
 import { randomUUID } from 'node:crypto'
 
 import { PrismaPg } from '@prisma/adapter-pg'
-
-import { PrismaClient } from '@/generated/prisma/client'
+import { PrismaClient } from '@src/generated/prisma/client'
 
 const schema = randomUUID()
 const baseUrl = new URL(process.env.DATABASE_URL as string)

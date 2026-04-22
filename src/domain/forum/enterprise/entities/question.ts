@@ -1,11 +1,10 @@
+import { AggregateRoot } from '@src/core/entities/aggregate-root'
+import type { UniqueEntityId } from '@src/core/entities/unique-entity-id'
+import type { Optional } from '@src/core/types/optional'
+import { QuestionAttachmentList } from '@src/domain/forum/enterprise/entities/question-attachment-list'
+import { Slug } from '@src/domain/forum/enterprise/entities/value-objects/slug'
+import { QuestionBestAnswerChosenEvent } from '@src/domain/forum/enterprise/events/question-best-answer-chosen-event'
 import dayjs from 'dayjs'
-
-import { AggregateRoot } from '@/core/entities/aggregate-root'
-import type { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import type { Optional } from '@/core/types/optional'
-import { QuestionAttachmentList } from '@/domain/forum/enterprise/entities/question-attachment-list'
-import { Slug } from '@/domain/forum/enterprise/entities/value-objects/slug'
-import { QuestionBestAnswerChosenEvent } from '@/domain/forum/enterprise/events/question-best-answer-chosen-event'
 
 export interface QuestionProps {
   authorId: UniqueEntityId

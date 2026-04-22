@@ -1,9 +1,9 @@
-import { makeQuestionComment } from '@test/factories/forum/make-question-comment'
-import { InMemoryQuestionCommentsRepository } from '@test/repositories/forum/in-memory-question-comments-repository'
+import { UniqueEntityId } from '@src/core/entities/unique-entity-id'
+import { DeleteQuestionCommentUseCase } from '@src/domain/forum/application/use-cases/delete-question-comment'
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { DeleteQuestionCommentUseCase } from '@/domain/forum/application/use-cases/delete-question-comment'
+import { makeQuestionComment } from '@/test/factories/forum/make-question-comment'
+import { InMemoryQuestionCommentsRepository } from '@/test/repositories/forum/in-memory-question-comments-repository'
 
 let inMemoryQuestionCommentsRepository: InMemoryQuestionCommentsRepository
 let sut: DeleteQuestionCommentUseCase

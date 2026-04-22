@@ -1,9 +1,9 @@
-import { makeQuestionComment } from '@test/factories/forum/make-question-comment'
-import { InMemoryQuestionCommentsRepository } from '@test/repositories/forum/in-memory-question-comments-repository'
+import { UniqueEntityId } from '@src/core/entities/unique-entity-id'
+import { FetchQuestionCommentsUseCase } from '@src/domain/forum/application/use-cases/fetch-question-comments'
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { FetchQuestionCommentsUseCase } from '@/domain/forum/application/use-cases/fetch-question-comments'
+import { makeQuestionComment } from '@/test/factories/forum/make-question-comment'
+import { InMemoryQuestionCommentsRepository } from '@/test/repositories/forum/in-memory-question-comments-repository'
 
 let inMemoryQuestionCommentsRepository: InMemoryQuestionCommentsRepository
 let sut: FetchQuestionCommentsUseCase

@@ -1,5 +1,5 @@
-import type { PaginationParams } from '@/core/repositories/pagination-params'
-import type { QuestionComment } from '@/domain/forum/enterprise/entities/question-comment'
+import type { PaginationParams } from '@src/core/repositories/pagination-params'
+import type { QuestionComment } from '@src/domain/forum/enterprise/entities/question-comment'
 
 export interface QuestionCommentsRepository {
   findById(id: string): Promise<QuestionComment | null>

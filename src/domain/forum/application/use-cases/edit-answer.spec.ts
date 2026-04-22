@@ -1,11 +1,11 @@
-import { makeAnswer } from '@test/factories/forum/make-answer'
-import { makeAnswerAttachment } from '@test/factories/forum/make-answer-attachment'
-import { InMemoryAnswersAttachmentsRepository } from '@test/repositories/forum/in-memory-answers-attachments-repository'
-import { InMemoryAnswersRepository } from '@test/repositories/forum/in-memory-answers-repository'
+import { UniqueEntityId } from '@src/core/entities/unique-entity-id'
+import { EditAnswerUseCase } from '@src/domain/forum/application/use-cases/edit-answer'
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { EditAnswerUseCase } from '@/domain/forum/application/use-cases/edit-answer'
+import { makeAnswer } from '@/test/factories/forum/make-answer'
+import { makeAnswerAttachment } from '@/test/factories/forum/make-answer-attachment'
+import { InMemoryAnswersAttachmentsRepository } from '@/test/repositories/forum/in-memory-answers-attachments-repository'
+import { InMemoryAnswersRepository } from '@/test/repositories/forum/in-memory-answers-repository'
 
 let inMemoryAnswersAttachmentsRepository: InMemoryAnswersAttachmentsRepository
 let inMemoryAnswersRepository: InMemoryAnswersRepository

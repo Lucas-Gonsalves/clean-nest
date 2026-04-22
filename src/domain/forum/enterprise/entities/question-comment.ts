@@ -1,7 +1,7 @@
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import type { Optional } from '@/core/types/optional'
-import { Comment, type CommentProps } from '@/domain/forum/enterprise/entities/comment'
-import { QuestionCommentEvent } from '@/domain/forum/enterprise/events/question-comment-event'
+import { UniqueEntityId } from '@src/core/entities/unique-entity-id'
+import type { Optional } from '@src/core/types/optional'
+import { Comment, type CommentProps } from '@src/domain/forum/enterprise/entities/comment'
+import { QuestionCommentEvent } from '@src/domain/forum/enterprise/events/question-comment-event'
 
 export interface QuestionCommentProps extends CommentProps {
   questionId: UniqueEntityId

@@ -1,7 +1,6 @@
 import { faker } from '@faker-js/faker'
-
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { Question, type QuestionProps } from '@/domain/forum/enterprise/entities/question'
+import { UniqueEntityId } from '@src/core/entities/unique-entity-id'
+import { Question, type QuestionProps } from '@src/domain/forum/enterprise/entities/question'
 
 export function makeQuestion(overrride: Partial<QuestionProps> = {}, id?: UniqueEntityId) {
   const question = Question.create(

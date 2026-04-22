@@ -1,8 +1,8 @@
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
+import { UniqueEntityId } from '@src/core/entities/unique-entity-id'
 import {
   QuestionAttachment,
   type QuestionAttachmentProps,
-} from '@/domain/forum/enterprise/entities/question-attachment'
+} from '@src/domain/forum/enterprise/entities/question-attachment'
 
 export function makeQuestionAttachment(overrride: Partial<QuestionAttachmentProps> = {}, id?: UniqueEntityId) {
   const questionAttachment = QuestionAttachment.create(

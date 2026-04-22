@@ -2,7 +2,6 @@
   "compilerOptions": {
     "module": "nodenext",
     "moduleResolution": "nodenext",
-    "baseUrl": ".",
     "resolvePackageJsonExports": true,
     "esModuleInterop": true,
     "isolatedModules": true,
@@ -15,8 +14,9 @@
     "sourceMap": true,
     "rootDir": "./",
     "paths": {
-      "@/*": ["./src/*"],
-      "@test/*": ["./test/*"]
+      "@/*": ["./*"],
+      "@src/*": ["./src/*"],
+      "@test": ["./test"]
     },
     "types": ["node", "vitest/globals"],
     "outDir": "./dist",

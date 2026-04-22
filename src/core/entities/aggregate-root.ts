@@ -1,6 +1,6 @@
-import { Entity } from '@/core/entities/entity'
-import type { DomainEvent } from '@/core/events/domain-event'
-import { DomainEvents } from '@/core/events/domain-events'
+import { Entity } from '@src/core/entities/entity'
+import type { DomainEvent } from '@src/core/events/domain-event'
+import { DomainEvents } from '@src/core/events/domain-events'
 
 export abstract class AggregateRoot<Props> extends Entity<Props> {
   private _domainEvents: DomainEvent[] = []

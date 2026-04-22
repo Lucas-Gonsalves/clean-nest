@@ -1,9 +1,9 @@
-import { type Either, left, right } from '@/core/either'
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { ResourceNotFoundError } from '@/core/errors/domain/resource-not-found-error'
-import type { AnswerCommentsRepository } from '@/domain/forum/application/repositories/answer-comments-repository'
-import type { AnswersRepository } from '@/domain/forum/application/repositories/answers-repository'
-import { AnswerComment } from '@/domain/forum/enterprise/entities/answer-comment'
+import { type Either, left, right } from '@src/core/either'
+import { UniqueEntityId } from '@src/core/entities/unique-entity-id'
+import { ResourceNotFoundError } from '@src/core/errors/domain/resource-not-found-error'
+import type { AnswerCommentsRepository } from '@src/domain/forum/application/repositories/answer-comments-repository'
+import type { AnswersRepository } from '@src/domain/forum/application/repositories/answers-repository'
+import { AnswerComment } from '@src/domain/forum/enterprise/entities/answer-comment'
 
 interface CommentOnAnswerUseCaseRequest {
   authorId: string

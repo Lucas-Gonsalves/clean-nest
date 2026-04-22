@@ -3,6 +3,7 @@ import swc from 'unplugin-swc'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
+  oxc: false,
   test: {
     include: ['**/*.e2e-spec.ts'],
     globals: true,
@@ -12,7 +13,8 @@ export default defineConfig({
   plugins: [swc.vite()],
   resolve: {
     alias: {
-      '@': resolve(__dirname, './src'),
+      '@': resolve(__dirname, './'),
+      '@src': resolve(__dirname, './src'),
       '@test': resolve(__dirname, './test'),
     },
   },

@@ -1,9 +1,9 @@
-import { makeQuestion } from '@test/factories/forum/make-question'
-import { InMemoryQuestionsAttachmentsRepository } from '@test/repositories/forum/in-memory-question-attachments-repository'
-import { InMemoryQuestionsRepository } from '@test/repositories/forum/in-memory-questions-repository'
+import { FetchRecentTopicsUseCase } from '@src/domain/forum/application/use-cases/fetch-recent-topics'
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import { FetchRecentTopicsUseCase } from '@/domain/forum/application/use-cases/fetch-recent-topics'
+import { makeQuestion } from '@/test/factories/forum/make-question'
+import { InMemoryQuestionsAttachmentsRepository } from '@/test/repositories/forum/in-memory-question-attachments-repository'
+import { InMemoryQuestionsRepository } from '@/test/repositories/forum/in-memory-questions-repository'
 
 let inMemoryQuestionsAttachmentsRepository: InMemoryQuestionsAttachmentsRepository
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository

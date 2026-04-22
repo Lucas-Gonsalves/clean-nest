@@ -1,10 +1,10 @@
-import { makeAnswer } from '@test/factories/forum/make-answer'
-import { InMemoryAnswerCommentsRepository } from '@test/repositories/forum/in-memory-answer-comments-repository'
-import { InMemoryAnswersAttachmentsRepository } from '@test/repositories/forum/in-memory-answers-attachments-repository'
-import { InMemoryAnswersRepository } from '@test/repositories/forum/in-memory-answers-repository'
+import { CommentOnAnswerUseCase } from '@src/domain/forum/application/use-cases/comment-on-answer'
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import { CommentOnAnswerUseCase } from '@/domain/forum/application/use-cases/comment-on-answer'
+import { makeAnswer } from '@/test/factories/forum/make-answer'
+import { InMemoryAnswerCommentsRepository } from '@/test/repositories/forum/in-memory-answer-comments-repository'
+import { InMemoryAnswersAttachmentsRepository } from '@/test/repositories/forum/in-memory-answers-attachments-repository'
+import { InMemoryAnswersRepository } from '@/test/repositories/forum/in-memory-answers-repository'
 
 let inMemoryAnswersAttachmentsRepository: InMemoryAnswersAttachmentsRepository
 let inMemoryAnswersRepository: InMemoryAnswersRepository

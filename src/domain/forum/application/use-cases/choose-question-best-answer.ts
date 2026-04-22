@@ -1,9 +1,9 @@
-import { type Either, left, right } from '@/core/either'
-import { NotAllowedError } from '@/core/errors/domain/not-allowed-error'
-import { ResourceNotFoundError } from '@/core/errors/domain/resource-not-found-error'
-import type { AnswersRepository } from '@/domain/forum/application/repositories/answers-repository'
-import type { QuestionsRepository } from '@/domain/forum/application/repositories/question-repository'
-import { Question } from '@/domain/forum/enterprise/entities/question'
+import { type Either, left, right } from '@src/core/either'
+import { NotAllowedError } from '@src/core/errors/domain/not-allowed-error'
+import { ResourceNotFoundError } from '@src/core/errors/domain/resource-not-found-error'
+import type { AnswersRepository } from '@src/domain/forum/application/repositories/answers-repository'
+import type { QuestionsRepository } from '@src/domain/forum/application/repositories/question-repository'
+import { Question } from '@src/domain/forum/enterprise/entities/question'
 
 interface ChooseQuestionBestAnswerUseCaseRequest {
   authorId: string

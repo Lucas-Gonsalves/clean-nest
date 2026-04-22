@@ -1,8 +1,8 @@
-import { DomainEvents } from '@/core/events/domain-events'
-import type { PaginationParams } from '@/core/repositories/pagination-params'
-import type { QuestionsAttachmentsRepository } from '@/domain/forum/application/repositories/question-attachments-repository'
-import type { QuestionsRepository } from '@/domain/forum/application/repositories/question-repository'
-import type { Question } from '@/domain/forum/enterprise/entities/question'
+import { DomainEvents } from '@src/core/events/domain-events'
+import type { PaginationParams } from '@src/core/repositories/pagination-params'
+import type { QuestionsAttachmentsRepository } from '@src/domain/forum/application/repositories/question-attachments-repository'
+import type { QuestionsRepository } from '@src/domain/forum/application/repositories/question-repository'
+import type { Question } from '@src/domain/forum/enterprise/entities/question'
 
 export class InMemoryQuestionsRepository implements QuestionsRepository {
   public items: Question[] = []

@@ -1,6 +1,6 @@
-import { type Either, right } from '@/core/either'
-import type { AnswerCommentsRepository } from '@/domain/forum/application/repositories/answer-comments-repository'
-import type { AnswerComment } from '@/domain/forum/enterprise/entities/answer-comment'
+import { type Either, right } from '@src/core/either'
+import type { AnswerCommentsRepository } from '@src/domain/forum/application/repositories/answer-comments-repository'
+import type { AnswerComment } from '@src/domain/forum/enterprise/entities/answer-comment'
 
 interface FetchAnswerCommentsUseCaseRequest {
   answerId: string

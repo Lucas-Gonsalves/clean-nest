@@ -1,6 +1,6 @@
-import type { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import type { DomainEvent } from '@/core/events/domain-event'
-import type { QuestionComment } from '@/domain/forum/enterprise/entities/question-comment'
+import type { UniqueEntityId } from '@src/core/entities/unique-entity-id'
+import type { DomainEvent } from '@src/core/events/domain-event'
+import type { QuestionComment } from '@src/domain/forum/enterprise/entities/question-comment'
 
 export class QuestionCommentEvent implements DomainEvent {
   public ocurredAt: Date

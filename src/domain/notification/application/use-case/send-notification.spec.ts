@@ -1,7 +1,7 @@
-import { InMemoryNotificationsRepository } from '@test/repositories/notification/in-memory-notification-repository'
+import { SendNotificationUseCase } from '@src/domain/notification/application/use-case/send-notification'
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import { SendNotificationUseCase } from '@/domain/notification/application/use-case/send-notification'
+import { InMemoryNotificationsRepository } from '@/test/repositories/notification/in-memory-notification-repository'
 
 let inMemoryNotificationsRepository: InMemoryNotificationsRepository
 let sut: SendNotificationUseCase

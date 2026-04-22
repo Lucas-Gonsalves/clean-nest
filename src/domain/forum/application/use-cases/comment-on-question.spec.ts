@@ -1,10 +1,10 @@
-import { makeQuestion } from '@test/factories/forum/make-question'
-import { InMemoryQuestionsAttachmentsRepository } from '@test/repositories/forum/in-memory-question-attachments-repository'
-import { InMemoryQuestionCommentsRepository } from '@test/repositories/forum/in-memory-question-comments-repository'
-import { InMemoryQuestionsRepository } from '@test/repositories/forum/in-memory-questions-repository'
+import { CommentOnQuestionUseCase } from '@src/domain/forum/application/use-cases/comment-on-question'
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import { CommentOnQuestionUseCase } from '@/domain/forum/application/use-cases/comment-on-question'
+import { makeQuestion } from '@/test/factories/forum/make-question'
+import { InMemoryQuestionsAttachmentsRepository } from '@/test/repositories/forum/in-memory-question-attachments-repository'
+import { InMemoryQuestionCommentsRepository } from '@/test/repositories/forum/in-memory-question-comments-repository'
+import { InMemoryQuestionsRepository } from '@/test/repositories/forum/in-memory-questions-repository'
 
 let inMemoryQuestionsAttachmentsRepository: InMemoryQuestionsAttachmentsRepository
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository
