@@ -3,8 +3,8 @@ import { Test } from '@nestjs/testing'
 import { Server } from 'http'
 import request from 'supertest'
 
-import { AppModule } from '../app.module'
-import { PrismaService } from '../prisma/prisma.service'
+import { AppModule } from '@/app.module'
+import { PrismaService } from '@/prisma/prisma.service'
 
 describe('Create Account (E2E)', () => {
   let app: INestApplication<Server>

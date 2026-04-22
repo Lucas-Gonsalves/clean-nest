@@ -58,10 +58,13 @@ export default tseslint.config(
       '@typescript-eslint/no-unsafe-call': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-member-access': 'off',
-      
-      '@typescript-eslint/no-explicit-any': 'off',
+
       '@typescript-eslint/no-floating-promises': 'warn',
       "prettier/prettier": ["warn", { endOfLine: "auto" }],
+      '@typescript-eslint/prefer-promise-reject-errors': 'off',
+      '@typescript-eslint/require-await': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
+      '@typescript-eslint/no-unsafe-argument': 'off',
     },
   },
 );

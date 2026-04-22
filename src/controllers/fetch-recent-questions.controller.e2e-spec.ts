@@ -5,8 +5,8 @@ import { hash } from 'bcryptjs'
 import { Server } from 'http'
 import request from 'supertest'
 
-import { AppModule } from '../app.module'
-import { PrismaService } from '../prisma/prisma.service'
+import { AppModule } from '@/app.module'
+import { PrismaService } from '@/prisma/prisma.service'
 
 describe('Fetch Recent Questions (E2E)', () => {
   let app: INestApplication<Server>
