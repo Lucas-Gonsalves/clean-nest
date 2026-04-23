@@ -2,10 +2,11 @@ import { INestApplication } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { Test } from '@nestjs/testing'
 import { AppModule } from '@src/infra/app.module'
-import { PrismaService } from '@/src/infra/database/prisma/prisma.service'
 import { hash } from 'bcryptjs'
 import { Server } from 'http'
 import request from 'supertest'
+
+import { PrismaService } from '@/src/infra/database/prisma/prisma.service'
 
 describe('Fetch Recent Questions (E2E)', () => {
   let app: INestApplication<Server>
