@@ -4,7 +4,7 @@ import { QuestionsAttachmentsRepository } from '@/src/domain/forum/application/r
 import { QuestionAttachment } from '@/src/domain/forum/enterprise/entities/question-attachment'
 
 Injectable()
-export class PrismaQuestionsAttachments implements QuestionsAttachmentsRepository {
+export class PrismaQuestionsAttachmentsRepository implements QuestionsAttachmentsRepository {
   findManyByQuestionId(questionId: string): Promise<QuestionAttachment[]> {
     throw new Error('Method not implemented.')
   }
