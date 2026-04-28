@@ -27,7 +27,6 @@ export class FetchRecentQuestionController {
     }
 
     const questions = result.value.questions.map((question) => QuestionPresenter.toHTTP(question))
-    console.log(questions)
 
     return { questions }
   }
