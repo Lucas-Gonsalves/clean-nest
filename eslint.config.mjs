@@ -32,7 +32,6 @@ export default tseslint.config(
     rules: {
       semi: ['warn', 'never'], // Disallow semicolons at the end of statements
       quotes: ['warn', 'single'], // Enforce the use of single quotes for strings
-      indent: ['warn', 2], // Enforce consistent indentation of 2 spaces
       'comma-dangle': ['warn', 'always-multiline'], // Require trailing commas in multiline objects, arrays, etc.
       'object-curly-spacing': ['warn', 'always'], // Require spaces inside curly braces (e.g., { foo: 'bar' })
       'arrow-parens': ['warn', 'always'], // Require parentheses around arrow function parameters
@@ -40,7 +39,6 @@ export default tseslint.config(
       'simple-import-sort/imports': 'warn', // turn import sort to warn
       'no-unused-vars': 'off', // desable error of no used variables
       'simple-import-sort/exports': 'warn', // turn export sort to warn
-
       '@typescript-eslint/no-unused-vars': [ // set a role to ignores the no used vars in case of first letter '_'
         'warn',
         {
