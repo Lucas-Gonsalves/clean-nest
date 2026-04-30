@@ -11,7 +11,7 @@ import { StudentFactory } from '@/test/factories/forum/make-student'
 
 import { DatabaseModule } from '../../database/database.module'
 
-describe('Edit Question (E2E)', () => {
+describe('Delete Question (E2E)', () => {
   let app: INestApplication<Server>
   let prisma: PrismaService
   let questionFactory: QuestionFactory
@@ -37,8 +37,8 @@ describe('Edit Question (E2E)', () => {
     await app.init()
   })
 
-  describe('[PUT] /questions/:id', () => {
-    it('should be able edit a new question with valid data', async () => {
+  describe('[DELETE] /questions/:id', () => {
+    it('should be able delete a new question with valid data', async () => {
       const user = await studentFactory.makePrismaStudent()
 
       const accessToken = jwt.sign({ sub: user.id.toString() })
@@ -48,20 +48,13 @@ describe('Edit Question (E2E)', () => {
       })
 
       const response = await request(app.getHttpServer())
-        .put(`/questions/${question.id.toString()}`)
+        .delete(`/questions/${question.id.toString()}`)
         .set('Authorization', `Bearer ${accessToken}`)
-        .send({
-          title: 'Edited Question',
-          content: 'Edited content',
-        })
 
-      const questionOnDatabase = await prisma.question.findFirst({ where: { title: 'Edited Question' } })
+      const questionOnDatabase = await prisma.question.findFirst({ where: { title: 'Deleted Question' } })
 
       expect(response.statusCode).toBe(204)
-      expect(questionOnDatabase).toMatchObject({
-        title: 'Edited Question',
-        content: 'Edited content',
-      })
+      expect(questionOnDatabase).toBeNull()
     })
   })
 })
