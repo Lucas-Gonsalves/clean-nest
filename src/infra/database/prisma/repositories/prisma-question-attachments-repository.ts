@@ -5,7 +5,7 @@ import { QuestionsAttachmentsRepository } from '@/src/domain/forum/application/r
 import { PrismaQuestionAttachmentMapper } from '../mappers/prisma-question-attachment-mapper'
 import { PrismaService } from '../prisma.service'
 
-Injectable()
+@Injectable()
 export class PrismaQuestionsAttachmentsRepository implements QuestionsAttachmentsRepository {
   constructor(private prisma: PrismaService) {}
 
@@ -20,6 +20,6 @@ export class PrismaQuestionsAttachmentsRepository implements QuestionsAttachment
   }
 
   async deleteManyByQuestionId(questionId: string) {
-    await this.prisma.attachment.deleteMany({ where: { id: questionId } })
+    await this.prisma.attachment.deleteMany({ where: { questionId } })
   }
 }

@@ -20,6 +20,6 @@ export class PrismaAnswersAttachmentsRepository implements AnswersAttachmentsRep
   }
 
   async deleteManyByAnswerId(answerId: string) {
-    await this.prisma.attachment.deleteMany({ where: { id: answerId } })
+    await this.prisma.attachment.deleteMany({ where: { answerId } })
   }
 }

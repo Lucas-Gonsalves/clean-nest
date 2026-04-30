@@ -1,6 +1,7 @@
+import { Injectable } from '@nestjs/common'
 import { type Either, right } from '@src/core/either'
 import { UniqueEntityId } from '@src/core/entities/unique-entity-id'
-import type { AnswersRepository } from '@src/domain/forum/application/repositories/answers-repository'
+import { AnswersRepository } from '@src/domain/forum/application/repositories/answers-repository'
 import { Answer } from '@src/domain/forum/enterprise/entities/answer'
 import { AnswerAttachment } from '@src/domain/forum/enterprise/entities/answer-attachment'
 import { AnswerAttachmentList } from '@src/domain/forum/enterprise/entities/answer-attachment-list'
@@ -19,6 +20,7 @@ type AnswerQuestionUseCaseResponse = Either<
   }
 >
 
+@Injectable()
 export class AnswerQuestionUseCase {
   constructor(private answersRepository: AnswersRepository) {}
 

@@ -6,13 +6,13 @@ import { Question, type QuestionProps } from '@src/domain/forum/enterprise/entit
 import { PrismaQuestionMapper } from '@/src/infra/database/prisma/mappers/prisma-question-mapper'
 import { PrismaService } from '@/src/infra/database/prisma/prisma.service'
 
-export function makeQuestion(overrride: Partial<QuestionProps> = {}, id?: UniqueEntityId) {
+export function makeQuestion(override: Partial<QuestionProps> = {}, id?: UniqueEntityId) {
   const question = Question.create(
     {
       authorId: new UniqueEntityId(),
       title: faker.lorem.sentence(),
       content: faker.lorem.text(),
-      ...overrride,
+      ...override,
     },
     id,
   )
@@ -27,7 +27,9 @@ export class QuestionFactory {
   async makePrismaQuestion(data: Partial<QuestionProps> = {}): Promise<Question> {
     const question = makeQuestion(data)
 
-    await this.prisma.question.create({ data: PrismaQuestionMapper.toPersistence(question) })
+    await this.prisma.question.create({
+      data: PrismaQuestionMapper.toPersistence(question),
+    })
 
     return question
   }

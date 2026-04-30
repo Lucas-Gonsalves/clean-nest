@@ -1,9 +1,10 @@
+import { Injectable } from '@nestjs/common'
 import { type Either, left, right } from '@src/core/either'
 import { UniqueEntityId } from '@src/core/entities/unique-entity-id'
 import { NotAllowedError } from '@src/core/errors/domain/not-allowed-error'
 import { ResourceNotFoundError } from '@src/core/errors/domain/resource-not-found-error'
-import type { AnswersAttachmentsRepository } from '@src/domain/forum/application/repositories/answer-attachments-repository'
-import type { AnswersRepository } from '@src/domain/forum/application/repositories/answers-repository'
+import { AnswersAttachmentsRepository } from '@src/domain/forum/application/repositories/answer-attachments-repository'
+import { AnswersRepository } from '@src/domain/forum/application/repositories/answers-repository'
 import type { Answer } from '@src/domain/forum/enterprise/entities/answer'
 import { AnswerAttachment } from '@src/domain/forum/enterprise/entities/answer-attachment'
 import { AnswerAttachmentList } from '@src/domain/forum/enterprise/entities/answer-attachment-list'
@@ -22,6 +23,7 @@ type EditAnswerUseCaseResponse = Either<
   }
 >
 
+@Injectable()
 export class EditAnswerUseCase {
   constructor(
     private answerRepository: AnswersRepository,

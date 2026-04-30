@@ -7,7 +7,7 @@ import { Answer } from '@/src/domain/forum/enterprise/entities/answer'
 import { PrismaAnswerMapper } from '../mappers/prisma-answer-mapper'
 import { PrismaService } from '../prisma.service'
 
-Injectable()
+@Injectable()
 export class PrismaAnswersRepository implements AnswersRepository {
   constructor(private prisma: PrismaService) {}
 
