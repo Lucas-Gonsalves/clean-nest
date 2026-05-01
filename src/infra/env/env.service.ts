@@ -1,0 +1,37 @@
+import { Injectable } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
+import { z } from 'zod'
+
+export const envSchema = z.object({
+  DATABASE_URL: z.url(),
+  PORT: z.coerce.number().optional().default(3000),
+  JWT_PRIVATE_KEY: z.string(),
+  JWT_PUBLIC_KEY: z.string(),
+})
+
+export type Env = z.infer<typeof envSchema>
+
+@Injectable()
+export class EnvService {
+  constructor(private configService: ConfigService<Env, true>) {}
+
+  private get<T extends keyof Env>(key: T) {
+    return this.configService.get(key, { infer: true })
+  }
+
+  get databaseUrl() {
+    return this.get('DATABASE_URL')
+  }
+
+  get port() {
+    return this.get('PORT')
+  }
+
+  get jwtPrivateKey() {
+    return this.get('JWT_PRIVATE_KEY')
+  }
+
+  get jwtPublicKey() {
+    return this.get('JWT_PUBLIC_KEY')
+  }
+}

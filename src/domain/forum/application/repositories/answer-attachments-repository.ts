@@ -1,0 +1,6 @@
+import type { AnswerAttachment } from '@src/domain/forum/enterprise/entities/answer-attachment'
+
+export abstract class AnswersAttachmentsRepository {
+  abstract findManyByAnswerId(answerId: string): Promise<AnswerAttachment[]>
+  abstract deleteManyByAnswerId(answerId: string): Promise<void>
+}
