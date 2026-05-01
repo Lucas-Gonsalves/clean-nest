@@ -14,7 +14,7 @@ const bodyValidationPipe = new ZodValidationPipe(answerQuestionBodySchema)
 
 type AnswerQuestionBodySchema = z.infer<typeof answerQuestionBodySchema>
 
-@Controller('/question/:questionId/answers')
+@Controller('/questions/:questionId/answers')
 export class AnswerQuestionController {
   constructor(private answerQuestion: AnswerQuestionUseCase) {}
 

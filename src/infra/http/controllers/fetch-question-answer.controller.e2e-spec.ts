@@ -5,16 +5,14 @@ import { AppModule } from '@src/infra/app.module'
 import { Server } from 'http'
 import request from 'supertest'
 
-import { PrismaService } from '@/src/infra/database/prisma/prisma.service'
 import { AnswerFactory } from '@/test/factories/forum/make-answer'
 import { QuestionFactory } from '@/test/factories/forum/make-question'
 import { StudentFactory } from '@/test/factories/forum/make-student'
 
 import { DatabaseModule } from '../../database/database.module'
 
-describe('Delete Answer (E2E)', () => {
+describe('Fetch Question Answers (E2E)', () => {
   let app: INestApplication<Server>
-  let prisma: PrismaService
   let answerFactory: AnswerFactory
   let questionFactory: QuestionFactory
   let studentFactory: StudentFactory
@@ -29,8 +27,6 @@ describe('Delete Answer (E2E)', () => {
 
     app = moduleRef.createNestApplication()
 
-    prisma = moduleRef.get(PrismaService)
-
     studentFactory = moduleRef.get(StudentFactory)
     answerFactory = moduleRef.get(AnswerFactory)
     questionFactory = moduleRef.get(QuestionFactory)
@@ -40,8 +36,8 @@ describe('Delete Answer (E2E)', () => {
     await app.init()
   })
 
-  describe('[DELETE] /answers/:id', () => {
-    it('should be able delete a answer with valid data', async () => {
+  describe('[GET] /questions/:questionId/answers', () => {
+    it('should be able fetch answers by a question', async () => {
       const user = await studentFactory.makePrismaStudent()
 
       const accessToken = jwt.sign({ sub: user.id.toString() })
@@ -50,21 +46,30 @@ describe('Delete Answer (E2E)', () => {
         authorId: user.id,
       })
 
-      const answer = await answerFactory.makePrismaAnswer({
+      await answerFactory.makePrismaAnswer({
         authorId: user.id,
         questionId: question.id,
+        content: 'first answer',
       })
 
-      const answerId = answer.id.toString()
+      await answerFactory.makePrismaAnswer({
+        authorId: user.id,
+        questionId: question.id,
+        content: 'second answer',
+      })
 
       const response = await request(app.getHttpServer())
-        .delete(`/answers/${answerId}`)
+        .get(`/questions/${question.id.toString()}/answers`)
         .set('Authorization', `Bearer ${accessToken}`)
+        .query({ page: '1' })
 
-      const answerOnDatabase = await prisma.answer.findFirst({ where: { id: answerId } })
-
-      expect(response.statusCode).toBe(204)
-      expect(answerOnDatabase).toBeNull()
+      expect(response.statusCode).toBe(200)
+      expect(response.body).toMatchObject({
+        answers: expect.arrayContaining([
+          expect.objectContaining({ content: 'first answer' }),
+          expect.objectContaining({ content: 'second answer' }),
+        ]),
+      })
     })
   })
 })

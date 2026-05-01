@@ -45,7 +45,7 @@ describe('Answer Question (E2E)', () => {
       const question = await questionFactory.makePrismaQuestion({ authorId: user.id, title: 'Question 01' })
 
       const response = await request(app.getHttpServer())
-        .post(`/question/${question.id.toString()}/answers`)
+        .post(`/questions/${question.id.toString()}/answers`)
         .set('Authorization', `Bearer ${accessToken}`)
         .send({
           content: 'Content',
