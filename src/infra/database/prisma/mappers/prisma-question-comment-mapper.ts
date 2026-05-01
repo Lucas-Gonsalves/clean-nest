@@ -22,6 +22,7 @@ export class PrismaQuestionCommentMapper {
 
   static toPersistence(questionComment: QuestionComment): Prisma.CommentUncheckedCreateInput {
     return {
+      id: questionComment.id.toString(),
       authorId: questionComment.authorId.toString(),
       questionId: questionComment.questionId.toString(),
       content: questionComment.content,
