@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, Param, Query } from '@nestjs/common'
+import { BadRequestException, Controller, Get, Param, Query } from '@nestjs/common'
 import { ZodValidationPipe } from '@src/infra/http/pipes/zod-validation-pipe'
 import z from 'zod'
 
@@ -14,20 +14,20 @@ type PageParamSchema = z.infer<typeof pageQueryParamSchema>
 
 @Controller('/questions/:questionId/comments')
 export class FetchQuestionCommentsController {
-  constructor(private fetchQuestionCommentss: FetchQuestionCommentsUseCase) {}
+  constructor(private fetchQuestionComments: FetchQuestionCommentsUseCase) {}
 
   @Get()
   async handle(@Query('page', pageValidationPipe) page: PageParamSchema, @Param('questionId') questionId: string) {
-    const result = await this.fetchQuestionCommentss.execute({ questionId, page })
+    const result = await this.fetchQuestionComments.execute({ questionId, page })
 
     if (result.isLeft()) {
       throw new BadRequestException()
     }
 
-    const questions = result.value.questionComments.map((questionComment) =>
+    const comments = result.value.questionComments.map((questionComment) =>
       QuestionCommentPresenter.toHTTP(questionComment),
     )
 
-    return { questions }
+    return { comments }
   }
 }

@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, HttpCode, Param, Patch } from '@nestjs/common'
+import { BadRequestException, Controller, HttpCode, Param, Patch } from '@nestjs/common'
 import { CurrentUser } from '@src/infra/auth/current-user.decorator'
 import type { UserPayload } from '@src/infra/auth/jwt.strategy'
 

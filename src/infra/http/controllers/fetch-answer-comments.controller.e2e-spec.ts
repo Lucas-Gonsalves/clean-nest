@@ -38,7 +38,7 @@ describe('Fetch Answer Comment (E2E)', () => {
     await app.init()
   })
 
-  describe('[GET] /answers', () => {
+  describe('[GET] /answers/:answerId/comments', () => {
     it('should be able to fetch the answer comment', async () => {
       const user = await studentFactory.makePrismaStudent()
 
@@ -67,7 +67,7 @@ describe('Fetch Answer Comment (E2E)', () => {
 
       expect(response.statusCode).toBe(200)
       expect(response.body).toEqual({
-        answers: expect.arrayContaining([
+        comments: expect.arrayContaining([
           expect.objectContaining({ content: 'Answer Comment 1' }),
           expect.objectContaining({ content: 'Answer Comment 2' }),
         ]),
