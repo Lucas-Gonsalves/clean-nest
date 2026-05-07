@@ -4,7 +4,7 @@ import z from 'zod'
 
 import { FetchQuestionCommentsUseCase } from '@/src/domain/forum/application/use-cases/fetch-question-comments'
 
-import { QuestionCommentPresenter } from '../presenters/question-comment-presenter'
+import { CommentWithAuthorPresenter } from '../presenters/comment-with-author-presenter'
 
 const pageQueryParamSchema = z.string().optional().default('1').transform(Number).pipe(z.number().min(1))
 
@@ -24,9 +24,7 @@ export class FetchQuestionCommentsController {
       throw new BadRequestException()
     }
 
-    const comments = result.value.questionComments.map((questionComment) =>
-      QuestionCommentPresenter.toHTTP(questionComment),
-    )
+    const comments = result.value.comments.map((questionComment) => CommentWithAuthorPresenter.toHTTP(questionComment))
 
     return { comments }
   }
