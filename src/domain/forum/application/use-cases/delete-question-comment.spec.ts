@@ -4,13 +4,17 @@ import { beforeEach, describe, expect, it } from 'vitest'
 
 import { makeQuestionComment } from '@/test/factories/forum/make-question-comment'
 import { InMemoryQuestionCommentsRepository } from '@/test/repositories/forum/in-memory-question-comments-repository'
+import { InMemoryStudentsRepository } from '@/test/repositories/forum/in-memory-students-repository'
 
 let inMemoryQuestionCommentsRepository: InMemoryQuestionCommentsRepository
+let inMemoryStudentsRepository: InMemoryStudentsRepository
 let sut: DeleteQuestionCommentUseCase
 
 describe('Delete Question Comment', () => {
   beforeEach(() => {
-    inMemoryQuestionCommentsRepository = new InMemoryQuestionCommentsRepository()
+    inMemoryStudentsRepository = new InMemoryStudentsRepository()
+
+    inMemoryQuestionCommentsRepository = new InMemoryQuestionCommentsRepository(inMemoryStudentsRepository)
 
     sut = new DeleteQuestionCommentUseCase(inMemoryQuestionCommentsRepository)
   })
