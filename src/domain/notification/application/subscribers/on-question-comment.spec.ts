@@ -8,9 +8,11 @@ import { beforeEach, describe, expect, it, type MockInstance, vi } from 'vitest'
 
 import { makeQuestion } from '@/test/factories/forum/make-question'
 import { makeQuestionComment } from '@/test/factories/forum/make-question-comment'
+import { InMemoryAttachmentsRepository } from '@/test/repositories/forum/in-memory-attachments-repository '
 import { InMemoryQuestionsAttachmentsRepository } from '@/test/repositories/forum/in-memory-question-attachments-repository'
 import { InMemoryQuestionCommentsRepository } from '@/test/repositories/forum/in-memory-question-comments-repository'
 import { InMemoryQuestionsRepository } from '@/test/repositories/forum/in-memory-questions-repository'
+import { InMemoryStudentsRepository } from '@/test/repositories/forum/in-memory-students-repository'
 import { InMemoryNotificationsRepository } from '@/test/repositories/notification/in-memory-notification-repository'
 import { waitFor } from '@/test/utils/wait-for'
 
@@ -18,6 +20,8 @@ let inMemoryQuestionAttachmentsRepository: InMemoryQuestionsAttachmentsRepositor
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository
 let inMemoryNotificationsRepository: InMemoryNotificationsRepository
 let inMemoryQuestionCommentsRepository: InMemoryQuestionCommentsRepository
+let inMemoryStudentsRepository: InMemoryStudentsRepository
+let inMemoryAttachmentsRepository: InMemoryAttachmentsRepository
 let sut: SendNotificationUseCase
 
 let sendNotificationExecuteSpy: MockInstance<
@@ -26,10 +30,18 @@ let sendNotificationExecuteSpy: MockInstance<
 
 describe('On Answer Comment', () => {
   beforeEach(() => {
+    inMemoryStudentsRepository = new InMemoryStudentsRepository()
+    inMemoryAttachmentsRepository = new InMemoryAttachmentsRepository()
     inMemoryQuestionAttachmentsRepository = new InMemoryQuestionsAttachmentsRepository()
-    inMemoryQuestionsRepository = new InMemoryQuestionsRepository(inMemoryQuestionAttachmentsRepository)
     inMemoryNotificationsRepository = new InMemoryNotificationsRepository()
-    inMemoryQuestionCommentsRepository = new InMemoryQuestionCommentsRepository()
+    inMemoryQuestionCommentsRepository = new InMemoryQuestionCommentsRepository(inMemoryStudentsRepository)
+
+    inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
+      inMemoryQuestionAttachmentsRepository,
+      inMemoryAttachmentsRepository,
+      inMemoryStudentsRepository,
+    )
+
     sut = new SendNotificationUseCase(inMemoryNotificationsRepository)
 
     sendNotificationExecuteSpy = vi.spyOn(sut, 'execute')

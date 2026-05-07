@@ -18,7 +18,7 @@
       "@src/*": ["./src/*"],
       "@test": ["./test"]
     },
-    "types": ["node", "vitest/globals"],
+    "types": ["node", "vitest/globals", "multer"],
     "outDir": "./dist",
     "incremental": true,
     "strict": true,
