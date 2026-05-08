@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 
+import { DomainEvents } from '@/src/core/events/domain-events'
 import { PaginationParams } from '@/src/core/repositories/pagination-params'
 import { QuestionsAttachmentsRepository } from '@/src/domain/forum/application/repositories/question-attachments-repository'
 import { QuestionsRepository } from '@/src/domain/forum/application/repositories/question-repository'
@@ -32,6 +33,9 @@ export class PrismaQuestionsRepository implements QuestionsRepository {
     await this.prisma.question.create({ data })
 
     await this.questionAttachmentsRepository.createMany(question.attachments.getItems())
+
+    DomainEvents.dispatchEventsForAggregate(question.id)
+
     return
   }
 
@@ -43,6 +47,8 @@ export class PrismaQuestionsRepository implements QuestionsRepository {
       this.questionAttachmentsRepository.createMany(question.attachments.getNewItems()),
       this.questionAttachmentsRepository.deleteMany(question.attachments.getRemovedItems()),
     ])
+
+    DomainEvents.dispatchEventsForAggregate(question.id)
 
     return
   }
