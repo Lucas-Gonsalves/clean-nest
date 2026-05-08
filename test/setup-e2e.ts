@@ -5,6 +5,8 @@ import { PrismaPg } from '@prisma/adapter-pg'
 import { PrismaClient } from '@src/generated/prisma/client'
 import { config } from 'dotenv'
 
+import { DomainEvents } from '@/src/core/events/domain-events'
+
 config({ path: '.env', override: true })
 config({ path: '.env.test', override: true })
 
@@ -28,6 +30,10 @@ const adapter = new PrismaPg({ connectionString: baseUrl.toString() }, { schema 
 const prisma = new PrismaClient({
   adapter,
   log: ['warn', 'error'],
+})
+
+beforeAll(() => {
+  DomainEvents.shouldRun = false
 })
 
 afterAll(async () => {
