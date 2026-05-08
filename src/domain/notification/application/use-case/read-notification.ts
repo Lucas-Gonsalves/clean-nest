@@ -11,13 +11,13 @@ interface ReadNotificationUseCaseRequest {
 }
 
 type ReadNotificationUseCaseResponse = Either<
-  ResourceNotFoundError,
+  ResourceNotFoundError | NotAllowedError,
   {
     notification: Notification
   }
 >
 
-Injectable()
+@Injectable()
 export class ReadNotificationUseCase {
   constructor(private notificationRepository: NotificationsRepository) {}
 
