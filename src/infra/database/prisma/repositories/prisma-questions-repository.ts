@@ -6,6 +6,7 @@ import { QuestionsAttachmentsRepository } from '@/src/domain/forum/application/r
 import { QuestionsRepository } from '@/src/domain/forum/application/repositories/question-repository'
 import { Question } from '@/src/domain/forum/enterprise/entities/question'
 import { QuestionDetails } from '@/src/domain/forum/enterprise/entities/value-objects/question-details'
+import { CacheRepository } from '@/src/infra/cache/cache-repository'
 
 import { PrismaQuestionDetailsMapper } from '../mappers/prisma-question-details-mapper'
 import { PrismaQuestionMapper } from '../mappers/prisma-question-mapper'
@@ -16,6 +17,7 @@ export class PrismaQuestionsRepository implements QuestionsRepository {
   constructor(
     private prisma: PrismaService,
     private questionAttachmentsRepository: QuestionsAttachmentsRepository,
+    private cacheRepository: CacheRepository,
   ) {}
 
   async findById(id: string): Promise<Question | null> {
@@ -49,7 +51,7 @@ export class PrismaQuestionsRepository implements QuestionsRepository {
     ])
 
     DomainEvents.dispatchEventsForAggregate(question.id)
-
+    await this.cacheRepository.delete(`question:${data.slug}:details`)
     return
   }
 
@@ -64,6 +66,14 @@ export class PrismaQuestionsRepository implements QuestionsRepository {
   }
 
   async findDetailsBySlug(slug: string): Promise<QuestionDetails | null> {
+    const cacheHit = await this.cacheRepository.get(slug)
+
+    if (cacheHit) {
+      const cacheData = JSON.parse(cacheHit)
+
+      return cacheData
+    }
+
     const question = await this.prisma.question.findUnique({
       where: { slug },
       include: { author: true, attachments: true },
@@ -73,7 +83,11 @@ export class PrismaQuestionsRepository implements QuestionsRepository {
       return null
     }
 
-    return PrismaQuestionDetailsMapper.toDomain(question)
+    const questionDetails = PrismaQuestionDetailsMapper.toDomain(question)
+
+    await this.cacheRepository.set(`question:${slug}:details`, JSON.stringify(questionDetails))
+
+    return questionDetails
   }
 
   async findManyRecent({ page }: PaginationParams): Promise<Question[]> {
