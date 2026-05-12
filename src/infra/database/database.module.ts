@@ -11,6 +11,7 @@ import { StudentsRepository } from '@/src/domain/forum/application/repositories/
 import { NotificationsRepository } from '@/src/domain/notification/application/repositories/notifications-repository'
 import { EnvModule } from '@/src/infra/env/env.module'
 
+import { CacheModule } from '../cache/cache.module'
 import { PrismaService } from './prisma/prisma.service'
 import { PrismaAnswersAttachmentsRepository } from './prisma/repositories/prisma-answer-attachments-repository'
 import { PrismaAnswerCommentsRepository } from './prisma/repositories/prisma-answer-comments-repository'
@@ -23,7 +24,7 @@ import { PrismaQuestionsRepository } from './prisma/repositories/prisma-question
 import { PrismaStudentsRepository } from './prisma/repositories/prisma-students-repository'
 
 @Module({
-  imports: [EnvModule],
+  imports: [EnvModule, CacheModule],
   providers: [
     PrismaService,
     {
