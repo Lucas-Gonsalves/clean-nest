@@ -29,6 +29,6 @@ services:
     container_name: clean-nest-cache
     image: redis
     ports:
-      - 6379:6376
+      - 6379:6379
     volumes:
       - ./data/redis:/data
