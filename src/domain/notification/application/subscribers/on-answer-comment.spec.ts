@@ -12,9 +12,11 @@ import { makeQuestion } from '@/test/factories/forum/make-question'
 import { InMemoryAnswerCommentsRepository } from '@/test/repositories/forum/in-memory-answer-comments-repository'
 import { InMemoryAnswersAttachmentsRepository } from '@/test/repositories/forum/in-memory-answers-attachments-repository'
 import { InMemoryAnswersRepository } from '@/test/repositories/forum/in-memory-answers-repository'
+import { InMemoryAttachmentsRepository } from '@/test/repositories/forum/in-memory-attachments-repository '
+import { InMemoryNotificationsRepository } from '@/test/repositories/forum/in-memory-notification-repository'
 import { InMemoryQuestionsAttachmentsRepository } from '@/test/repositories/forum/in-memory-question-attachments-repository'
 import { InMemoryQuestionsRepository } from '@/test/repositories/forum/in-memory-questions-repository'
-import { InMemoryNotificationsRepository } from '@/test/repositories/notification/in-memory-notification-repository'
+import { InMemoryStudentsRepository } from '@/test/repositories/forum/in-memory-students-repository'
 import { waitFor } from '@/test/utils/wait-for'
 
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionsAttachmentsRepository
@@ -23,6 +25,8 @@ let inMemoryAnswersAttachmentsRepository: InMemoryAnswersAttachmentsRepository
 let inMemoryAnswersRepository: InMemoryAnswersRepository
 let inMemoryNotificationsRepository: InMemoryNotificationsRepository
 let inMemoryAnswerCommentsRepository: InMemoryAnswerCommentsRepository
+let inMemoryAttachmentsRepository: InMemoryAttachmentsRepository
+let inMemoryStudentsRepository: InMemoryStudentsRepository
 let sut: SendNotificationUseCase
 
 let sendNotificationExecuteSpy: MockInstance<
@@ -31,12 +35,19 @@ let sendNotificationExecuteSpy: MockInstance<
 
 describe('On Answer Comment', () => {
   beforeEach(() => {
-    inMemoryQuestionAttachmentsRepository = new InMemoryQuestionsAttachmentsRepository()
-    inMemoryQuestionsRepository = new InMemoryQuestionsRepository(inMemoryQuestionAttachmentsRepository)
+    inMemoryStudentsRepository = new InMemoryStudentsRepository()
+    inMemoryAttachmentsRepository = new InMemoryAttachmentsRepository()
     inMemoryAnswersAttachmentsRepository = new InMemoryAnswersAttachmentsRepository()
     inMemoryAnswersRepository = new InMemoryAnswersRepository(inMemoryAnswersAttachmentsRepository)
     inMemoryNotificationsRepository = new InMemoryNotificationsRepository()
-    inMemoryAnswerCommentsRepository = new InMemoryAnswerCommentsRepository()
+    inMemoryAnswerCommentsRepository = new InMemoryAnswerCommentsRepository(inMemoryStudentsRepository)
+    inMemoryQuestionAttachmentsRepository = new InMemoryQuestionsAttachmentsRepository()
+
+    inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
+      inMemoryQuestionAttachmentsRepository,
+      inMemoryAttachmentsRepository,
+      inMemoryStudentsRepository,
+    )
     sut = new SendNotificationUseCase(inMemoryNotificationsRepository)
 
     sendNotificationExecuteSpy = vi.spyOn(sut, 'execute')

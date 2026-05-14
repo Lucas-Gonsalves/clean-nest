@@ -1,56 +1,85 @@
 # Clean Nest
 
-A clean architecture NestJS application with PostgreSQL, Prisma, JWT authentication, and a forum-style question/answer domain.
+A NestJS API built with a Clean Architecture approach for a forum domain with questions, answers, comments, attachments, and notifications.
 
-## Overview
+## Stack
 
-This repository demonstrates a scalable backend architecture using NestJS and Prisma. The application includes:
-
-- PostgreSQL database access with Prisma ORM
-- JWT-based authentication and authorization
-- A domain model for users, questions, and answers
-- User roles: `STUDENT` and `INSTRUCTOR`
-- Environment validation with Zod
-- Unit and end-to-end tests with Vitest
-
-## Tech stack
-
-- Node.js
+- Node.js + TypeScript
 - NestJS
-- TypeScript
-- Prisma
-- PostgreSQL
-- Zod
-- JWT
-- Vitest
-- ESLint
-- Prettier
+- Prisma + PostgreSQL
+- Redis for caching
+- MinIO/S3 for attachment uploads
+- JWT with Passport
+- Zod for environment validation
+- Vitest for unit and E2E tests
+- ESLint + Prettier
 
-## Project structure
+## Structure
 
-- `src/infra`: application bootstrap, NestJS modules, HTTP and auth layers
-- `src/core`: domain entities, repositories, errors, and shared logic
-- `src/generated/prisma`: generated Prisma client
-- `prisma/schema.prisma`: database schema definition
+- `src/core`: shared application building blocks, such as base entities, events, errors, and repository types.
+- `src/domain`: business rules, entities, use cases, and repository contracts.
+- `src/infra`: NestJS modules, HTTP, database, cache, storage, authentication, and events.
+- `src/generated/prisma`: generated Prisma Client.
+- `test`: factories, in-memory repositories, and E2E test setup.
+- `prisma`: database schema and migrations.
 
 ## Requirements
 
-- Node.js 20+ (recommended)
+- Node.js 20+
 - `pnpm`
-- PostgreSQL database
+- Docker and Docker Compose
 
-## Environment variables
+## Local Services
 
-Create a `.env` file in the project root with the following values:
+Use Docker to start the local infrastructure dependencies:
 
-```env
-DATABASE_URL=postgresql://user:password@host:port/database
-PORT=3000
-JWT_PRIVATE_KEY=your-private-key
-JWT_PUBLIC_KEY=your-public-key
+```bash
+docker compose up -d
 ```
 
-## Setup
+Available services:
+
+- PostgreSQL: `localhost:5432`
+- Redis: `localhost:6379`
+- MinIO API: `localhost:9000`
+- MinIO console: `localhost:9001`
+
+## Environment
+
+Create a `.env` file from the example:
+
+```bash
+cp .env.example .env
+```
+
+Main variables:
+
+```env
+PORT=3000
+DATABASE_URL="postgresql://postgres:docker@localhost:5432/clean-nest?schema=public"
+
+JWT_PRIVATE_KEY=""
+JWT_PUBLIC_KEY=""
+
+AWS_BUCKET_NAME="uploads"
+AWS_ACCESS_KEY_ID="admin"
+AWS_SECRET_ACCESS_KEY_ID="password123"
+AWS_ENDPOINT="http://localhost:9000"
+AWS_REGION="us-east-1"
+
+REDIS_HOST="127.0.0.1"
+REDIS_PORT=6379
+REDIS_DB=0
+```
+
+For E2E tests, keep a `.env.test` file with test-specific overrides:
+
+```env
+AWS_BUCKET_NAME="test"
+REDIS_DB=1
+```
+
+## Installation
 
 Install dependencies:
 
@@ -58,58 +87,121 @@ Install dependencies:
 pnpm install
 ```
 
-Generate Prisma client and apply migrations:
+Generate the Prisma Client:
 
 ```bash
 pnpm exec prisma generate
-pnpm exec prisma migrate dev --name init
 ```
 
-If you want to use the existing migration history without creating a new migration, run:
+Apply migrations:
 
 ```bash
 pnpm exec prisma migrate deploy
 ```
 
-## Running the application
-
-Start the app in development:
+During development, when creating a new migration:
 
 ```bash
-pnpm run start:dev
+pnpm exec prisma migrate dev
 ```
 
-Start the app in production mode:
+## Running the Application
 
 ```bash
-pnpm run start:prod
+pnpm start:dev
 ```
+
+Build and production:
+
+```bash
+pnpm build
+pnpm start:prod
+```
+
+## Quality and Tests
+
+TypeScript check:
+
+```bash
+pnpm exec tsc --noEmit
+```
+
+Build:
+
+```bash
+pnpm build
+```
+
+Lint with auto-fix:
+
+```bash
+pnpm lint
+```
+
+Unit tests:
+
+```bash
+pnpm test
+```
+
+E2E tests:
+
+```bash
+pnpm test:e2e
+```
+
+Recommended full check before opening a PR:
+
+```bash
+pnpm exec tsc --noEmit
+pnpm build
+pnpm lint
+pnpm test
+pnpm test:e2e
+```
+
+## Main Routes
+
+- `POST /accounts`
+- `POST /sessions`
+- `POST /questions`
+- `GET /questions`
+- `GET /questions/:slug`
+- `PUT /questions/:id`
+- `DELETE /questions/:id`
+- `POST /questions/:questionId/answers`
+- `GET /questions/:questionId/answers`
+- `PUT /answers/:id`
+- `DELETE /answers/:id`
+- `PATCH /answers/:answerId/choose-as-best`
+- `POST /questions/:questionId/comments`
+- `GET /questions/:questionId/comments`
+- `DELETE /questions/comments/:id`
+- `POST /answers/:answerId/comments`
+- `GET /answers/:answerId/comments`
+- `DELETE /answers/comments/:id`
+- `POST /attachments`
+- `PATCH /notification/:notificationId/read`
+
+## Cache and E2E Tests
+
+E2E tests create an isolated PostgreSQL schema for each test run and drop it at the end. Redis uses the database configured through `REDIS_DB` and is cleaned before each test with `flushdb()`, preventing cached data from leaking between scenarios.
 
 ## Scripts
 
-- `pnpm run build` - compile TypeScript
-- `pnpm run start` - start NestJS application
-- `pnpm run start:dev` - start in watch mode
-- `pnpm run lint` - run ESLint and auto-fix issues
-- `pnpm run format` - format source files with Prettier
-- `pnpm run test` - run unit tests
-- `pnpm run test:e2e` - run end-to-end tests
-- `pnpm run test:cov` - run tests with coverage
-
-## Database models
-
-The Prisma schema defines these core models:
-
-- `User` with roles and relations to questions and answers
-- `Question` with author, answers, and optional best answer
-- `Answer` with author and relation to a question
-
-## Notes
-
-- The application uses Zod to validate runtime environment variables.
-- The NestJS entry point is `src/infra/main.ts`.
-- The main application module is `src/infra/app.module.ts`.
+- `pnpm build`: compiles the application.
+- `pnpm start`: starts the application.
+- `pnpm start:dev`: starts the application in watch mode.
+- `pnpm start:debug`: starts the application in debug mode.
+- `pnpm start:prod`: runs the production build.
+- `pnpm lint`: runs ESLint with auto-fix.
+- `pnpm format`: formats files with Prettier.
+- `pnpm test`: runs unit tests.
+- `pnpm test:watch`: runs unit tests in watch mode.
+- `pnpm test:cov`: runs tests with coverage.
+- `pnpm test:e2e`: runs E2E tests.
+- `pnpm test:e2e:watch`: runs E2E tests in watch mode.
 
 ## License
 
-This project is private and not published to npm.
+Private project, not published to npm.
