@@ -1,10 +1,12 @@
+import { Injectable } from '@nestjs/common'
 import { DomainEvents } from '@src/core/events/domain-events'
-import type { EventHandler } from '@src/core/events/event-handler'
-import type { AnswersRepository } from '@src/domain/forum/application/repositories/answers-repository'
-import type { QuestionsRepository } from '@src/domain/forum/application/repositories/question-repository'
+import { EventHandler } from '@src/core/events/event-handler'
+import { AnswersRepository } from '@src/domain/forum/application/repositories/answers-repository'
+import { QuestionsRepository } from '@src/domain/forum/application/repositories/question-repository'
 import { AnswerCommentEvent } from '@src/domain/forum/enterprise/events/answer-comment-event'
-import type { SendNotificationUseCase } from '@src/domain/notification/application/use-case/send-notification'
+import { SendNotificationUseCase } from '@src/domain/notification/application/use-case/send-notification'
 
+@Injectable()
 export class OnAnswerComment implements EventHandler {
   constructor(
     private answersRepository: AnswersRepository,

@@ -4,6 +4,9 @@ import { randomUUID } from 'node:crypto'
 import { PrismaPg } from '@prisma/adapter-pg'
 import { PrismaClient } from '@src/generated/prisma/client'
 import { config } from 'dotenv'
+import { Redis } from 'ioredis'
+
+import { DomainEvents } from '@/src/core/events/domain-events'
 
 config({ path: '.env', override: true })
 config({ path: '.env.test', override: true })
@@ -23,6 +26,12 @@ execSync('pnpm prisma migrate deploy', {
   },
 })
 
+const redis = new Redis({
+  host: process.env.REDIS_HOST ?? '127.0.0.1',
+  port: Number(process.env.REDIS_PORT ?? 6379),
+  db: Number(process.env.REDIS_DB ?? 0),
+})
+
 const adapter = new PrismaPg({ connectionString: baseUrl.toString() }, { schema })
 
 const prisma = new PrismaClient({
@@ -30,7 +39,16 @@ const prisma = new PrismaClient({
   log: ['warn', 'error'],
 })
 
+beforeAll(() => {
+  DomainEvents.shouldRun = false
+})
+
+beforeEach(async () => {
+  await redis.flushdb()
+})
+
 afterAll(async () => {
   await prisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`)
   await prisma.$disconnect()
+  redis.disconnect()
 })

@@ -12,6 +12,9 @@ export const envSchema = z.object({
   AWS_SECRET_ACCESS_KEY_ID: z.string(),
   AWS_ENDPOINT: z.string(),
   AWS_REGION: z.string(),
+  REDIS_HOST: z.string().optional().default('127.0.0.1'),
+  REDIS_DB: z.coerce.number().optional().default(0),
+  REDIS_PORT: z.coerce.number().optional().default(6379),
 })
 
 export type Env = z.infer<typeof envSchema>
@@ -58,5 +61,17 @@ export class EnvService {
 
   get awsRegion() {
     return this.get('AWS_REGION')
+  }
+
+  get redisHost() {
+    return this.get('REDIS_HOST')
+  }
+
+  get redisPort() {
+    return this.get('REDIS_PORT')
+  }
+
+  get redisDb() {
+    return this.get('REDIS_DB')
   }
 }

@@ -11,10 +11,10 @@ import { makeQuestion } from '@/test/factories/forum/make-question'
 import { InMemoryAnswersAttachmentsRepository } from '@/test/repositories/forum/in-memory-answers-attachments-repository'
 import { InMemoryAnswersRepository } from '@/test/repositories/forum/in-memory-answers-repository'
 import { InMemoryAttachmentsRepository } from '@/test/repositories/forum/in-memory-attachments-repository '
+import { InMemoryNotificationsRepository } from '@/test/repositories/forum/in-memory-notification-repository'
 import { InMemoryQuestionsAttachmentsRepository } from '@/test/repositories/forum/in-memory-question-attachments-repository'
 import { InMemoryQuestionsRepository } from '@/test/repositories/forum/in-memory-questions-repository'
 import { InMemoryStudentsRepository } from '@/test/repositories/forum/in-memory-students-repository'
-import { InMemoryNotificationsRepository } from '@/test/repositories/notification/in-memory-notification-repository'
 import { waitFor } from '@/test/utils/wait-for'
 
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionsAttachmentsRepository

@@ -24,3 +24,11 @@ services:
     volumes:
       - ./data/minio:/data
     command: server /data --console-address ":9001"
+
+  cache:
+    container_name: clean-nest-cache
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - ./data/redis:/data

@@ -19,6 +19,7 @@ import { FetchRecentTopicsUseCase } from '@/src/domain/forum/application/use-cas
 import { GetQuestionBySlugUseCase } from '@/src/domain/forum/application/use-cases/get-question-by-slug'
 import { RegisterStudentUseCase } from '@/src/domain/forum/application/use-cases/register-student'
 import { UploadAndCreateAttachmentUseCase } from '@/src/domain/forum/application/use-cases/upload-and-create-attachment'
+import { ReadNotificationUseCase } from '@/src/domain/notification/application/use-case/read-notification'
 
 import { CryptographyModule } from '../cryptography/cryptography.module'
 import { DatabaseModule } from '../database/database.module'
@@ -41,6 +42,7 @@ import { FetchQuestionAnswersController } from './controllers/fetch-question-ans
 import { FetchQuestionCommentsController } from './controllers/fetch-question-comments.controller'
 import { FetchRecentQuestionController } from './controllers/fetch-recent-questions.controller'
 import { GetQuestionBySlugController } from './controllers/get-question-by-slug.controller'
+import { ReadNotificationController } from './controllers/read-notification.controller'
 import { UpdloadAttachmentController } from './controllers/upload-attachment.controller'
 
 @Module({
@@ -65,6 +67,7 @@ import { UpdloadAttachmentController } from './controllers/upload-attachment.con
     FetchQuestionCommentsController,
     FetchAnswerCommentsController,
     UpdloadAttachmentController,
+    ReadNotificationController,
   ],
   providers: [
     CreateQuestionUseCase,
@@ -86,6 +89,7 @@ import { UpdloadAttachmentController } from './controllers/upload-attachment.con
     FetchQuestionCommentsUseCase,
     FetchAnswerCommentsUseCase,
     UploadAndCreateAttachmentUseCase,
+    ReadNotificationUseCase,
   ],
 })
 export class HttpModule {}
