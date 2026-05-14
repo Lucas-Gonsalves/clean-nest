@@ -39,8 +39,11 @@ const prisma = new PrismaClient({
   log: ['warn', 'error'],
 })
 
-beforeAll(async () => {
+beforeAll(() => {
   DomainEvents.shouldRun = false
+})
+
+beforeEach(async () => {
   await redis.flushdb()
 })
 
